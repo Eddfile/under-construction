@@ -38,6 +38,7 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 60px;
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     /* Zona din stânga: Titlu Login și Input */
@@ -144,9 +145,83 @@
       grid-column: 2;
     }
 
-    /* Ascundere element vechi nefolosit */
-    .btn-reset {
+    /* STIL PANOU SECRET (Ascuns inițial) */
+    .secret-panel {
       display: none;
+      width: 100%;
+      max-width: 500px;
+      background: rgba(30, 30, 30, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 12px;
+      margin: auto 0;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .secret-panel.active {
+      display: block;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .secret-panel h2 {
+      color: #00ffcc;
+      margin-top: 0;
+      font-size: 24px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 15px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      color: #888888;
+      margin-bottom: 8px;
+    }
+
+    .form-group input, .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 12px;
+      color: #ffffff;
+      border-radius: 6px;
+      font-size: 16px;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: #00ffcc;
+    }
+
+    .btn-send {
+      width: 100%;
+      background: #00ffcc;
+      color: #121212;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+
+    .btn-send:hover {
+      background: #00ccaa;
     }
 
     /* Stilul elegant pentru Citat jos pe centru */
@@ -166,9 +241,6 @@
         justify-content: center;
         padding: 40px 20px;
       }
-      .container.content-container {
-        margin: auto 0;
-      }
       .login-status {
         flex-direction: column;
         gap: 45px;
@@ -179,10 +251,6 @@
       .login-form {
         margin: 0 auto;
       }
-      blockquote {
-        margin-top: 30px;
-        font-size: 14px;
-      }
     }
   </style>
 </head>
@@ -190,9 +258,9 @@
 
     <!-- Zona centrală: Autentificarea -->
     <div class="container content-container">
-        <div class="login-status">
-
-            <!-- Stânga: Câmpul de Login text -->
+        
+        <!-- Interfața standard cu tastatură -->
+        <div class="login-status" id="loginWrapper">
             <div class="title-area login-title-area">
                 <h1 class="heading">Log In</h1>
                 <div class="login-form">
@@ -202,7 +270,6 @@
                 </div>
             </div>
 
-            <!-- Dreapta: Blocul cu tastele rotunde -->
             <div class="content-area">
                 <ul class="numpad">
                     <button class="num cbutton" data-num="1">1</button>
@@ -217,8 +284,24 @@
                     <button class="num cbutton" data-num="0">0</button>
                 </ul>
             </div>
-
         </div>
+
+        <!-- FORMULARUL PRIVAT ȘI ASCUNS (Apare doar la codul 55555) -->
+        <div class="secret-panel" id="secretPanel">
+            <h2>Consolă Securizată — Mesaj Criptat</h2>
+            <form action="#" onsubmit="alert('Mesaj trimis prin canal securizat.'); return false;">
+                <div class="form-group">
+                    <label>Subiect / Identificator</label>
+                    <input type="text" placeholder="Ex: Operativ 09" required>
+                </div>
+                <div class="form-group">
+                    <label>Mesaj Securizat</label>
+                    <textarea rows="5" placeholder="Scrie aici informațiile confidențiale..." required></textarea>
+                </div>
+                <button type="submit" class="btn-send">Trimite Securizat</button>
+            </form>
+        </div>
+
     </div>
 
     <!-- Zona de jos: Citatul lui Kant -->
@@ -230,39 +313,32 @@ document.addEventListener("DOMContentLoaded", function() {
     const showPassInput = document.getElementById("showpass");
     const numButtons = document.querySelectorAll(".numpad .num");
     const resetButtons = document.querySelectorAll(".reset");
+    const loginWrapper = document.getElementById("loginWrapper");
+    const secretPanel = document.getElementById("secretPanel");
 
-    // Definim codurile secrete și link-urile corespunzătoare
+    // Rețeaua completă cu cele 50 de redirecționări externe
     const redirects = {
         "745638": "https://blackcube.com",
         "12345": "https://google.com",
-        "9927653": "https://partners.group-ib.com/English/?_gl=1*11neyik*_gcl_au*OTk1OTA5MTA5LjE3ODAxODIwMTI."
-    };
-
-    // Adăugare cifre la apăsare
-    numButtons.forEach(button => {
-        button.addEventListener("click", function() {
-            const digit = this.getAttribute("data-num");
-            realPassInput.value += digit;
-            showPassInput.value += "*";
-
-            // Verifică în timp real dacă s-a potrivit vreun cod secret
-            const currentCode = realPassInput.value;
-            if (redirects[currentCode]) {
-                window.location.href = redirects[currentCode];
-            }
-        });
-    });
-
-    // Resetarea totală a câmpurilor
-    resetButtons.forEach(btn => {
-        btn.addEventListener("click", function(e) {
-            e.preventDefault();
-            realPassInput.value = "";
-            showPassInput.value = "";
-        });
-    });
-});
-</script>
-
-</body>
-</html>
+        "9927653": "https://group-ib.com",
+        "48201": "https://hakluytandco.com",
+        "93561": "https://k2integrity.com",
+        "10754": "https://controlrisks.com",
+        "856302": "https://fusiongps.com",
+        "319475": "https://g3.co",
+        "720491": "https://kroll.com",
+        "503926": "https://diligence.com",
+        "4056291": "https://aperio-intelligence.com",
+        "8391054": "https://vantageintelligence.com",
+        "1605384": "https://greyhawk.com",
+        "30875914": "https://veracityworldwide.com",
+        "92541036": "https://gryphon-strategies.com",
+        "1092847": "https://schillingspartners.com",
+        "5829104": "https://alaco.com",
+        "7492051": "https://gpw.co",
+        "6301952": "https://sirenmaritime.com",
+        "29104857": "https://baerkarrer.ch",
+        "61492758": "https://boozallen.com",
+        "74591036": "https://leidos.com",
+        "18503694": "https://caci.com",
+        "59281740": "https://palantir.com",

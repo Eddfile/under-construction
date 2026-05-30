@@ -38,7 +38,6 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 60px;
-      transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     /* Zona din stânga: Titlu Login și Input */
@@ -145,85 +144,6 @@
       grid-column: 2;
     }
 
-    /* STIL PANOU SECRET (Ascuns inițial) */
-    .secret-panel {
-      display: none;
-      width: 100%;
-      max-width: 500px;
-      background: rgba(30, 30, 30, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      padding: 40px;
-      border-radius: 12px;
-      margin: auto 0;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-      opacity: 0;
-      transform: scale(0.95);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .secret-panel.active {
-      display: block;
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .secret-panel h2 {
-      color: #00ffcc;
-      margin-top: 0;
-      font-size: 24px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding-bottom: 15px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-      text-align: left;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 14px;
-      color: #888888;
-      margin-bottom: 8px;
-    }
-
-    .form-group input, .form-group textarea {
-      width: 100%;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.2);
-      padding: 12px;
-      color: #ffffff;
-      border-radius: 6px;
-      font-size: 16px;
-      outline: none;
-      font-family: inherit;
-    }
-
-    .form-group input:focus, .form-group textarea:focus {
-      border-color: #00ffcc;
-    }
-
-    .btn-send {
-      width: 100%;
-      background: #00ffcc;
-      color: #121212;
-      border: none;
-      padding: 14px;
-      font-size: 16px;
-      font-weight: 600;
-      border-radius: 6px;
-      cursor: pointer;
-      text-transform: uppercase;
-      transition: background 0.2s;
-    }
-
-    .btn-send:hover {
-      background: #00ccaa;
-    }
-
     /* Stilul elegant pentru Citat jos pe centru */
     blockquote {
       font-size: 16px;
@@ -258,9 +178,9 @@
 
     <!-- Zona centrală: Autentificarea -->
     <div class="container content-container">
-        
-        <!-- Interfața standard cu tastatură -->
         <div class="login-status" id="loginWrapper">
+            
+            <!-- Stânga: Câmpul de Login text -->
             <div class="title-area login-title-area">
                 <h1 class="heading">Log In</h1>
                 <div class="login-form">
@@ -270,6 +190,7 @@
                 </div>
             </div>
 
+            <!-- Dreapta: Blocul cu tastele rotunde -->
             <div class="content-area">
                 <ul class="numpad">
                     <button class="num cbutton" data-num="1">1</button>
@@ -284,24 +205,8 @@
                     <button class="num cbutton" data-num="0">0</button>
                 </ul>
             </div>
-        </div>
 
-        <!-- FORMULARUL PRIVAT ȘI ASCUNS (Apare doar la codul 55555) -->
-        <div class="secret-panel" id="secretPanel">
-            <h2>Consolă Securizată — Mesaj Criptat</h2>
-            <form action="#" onsubmit="alert('Mesaj trimis prin canal securizat.'); return false;">
-                <div class="form-group">
-                    <label>Subiect / Identificator</label>
-                    <input type="text" placeholder="Ex: Operativ 09" required>
-                </div>
-                <div class="form-group">
-                    <label>Mesaj Securizat</label>
-                    <textarea rows="5" placeholder="Scrie aici informațiile confidențiale..." required></textarea>
-                </div>
-                <button type="submit" class="btn-send">Trimite Securizat</button>
-            </form>
         </div>
-
     </div>
 
     <!-- Zona de jos: Citatul lui Kant -->
@@ -313,13 +218,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const showPassInput = document.getElementById("showpass");
     const numButtons = document.querySelectorAll(".numpad .num");
     const resetButtons = document.querySelectorAll(".reset");
-    const loginWrapper = document.getElementById("loginWrapper");
-    const secretPanel = document.getElementById("secretPanel");
 
     // Rețeaua completă cu cele 50 de redirecționări externe
     const redirects = {
         "745638": "https://blackcube.com",
-        "12345": "https://google.com",
+        "123456789": "https://google.com",
         "9927653": "https://group-ib.com",
         "48201": "https://hakluytandco.com",
         "93561": "https://k2integrity.com",
@@ -342,5 +245,67 @@ document.addEventListener("DOMContentLoaded", function() {
         "74591036": "https://leidos.com",
         "18503694": "https://caci.com",
         "59281740": "https://palantir.com",
-        "8594021" : "constellis.com",
-      "4029185": "https://cbrnteam.com","6930291": "flashpoint.io","7201948": "recordedfuture.com","8204915": "bellingcat.com","1029485": "intelligencefusion.co.uk","9302914": "https://intel471.com","5830291": "zerofox.com","40294812": "https://guidepostsolutions.com"};numButtons.forEach(button => {button.addEventListener("click", function() {const digit = this.getAttribute("data-num");realPassInput.value += digit;showPassInput.value += "*";const currentCode = realPassInput.value;if (currentCode === "55555") {loginWrapper.style.opacity = "0";loginWrapper.style.transform = "scale(0.95)";setTimeout(() => {loginWrapper.style.display = "none";secretPanel.style.display = "block";setTimeout(() => {secretPanel.classList.add("active");}, 50);}, 500);return;}if (redirects[currentCode]) {window.location.href = redirects[currentCode];return;}if (currentCode.length >= 9) {realPassInput.value = "";showPassInput.value = "";}});});resetButtons.forEach(btn => {btn.addEventListener("click", function(e) {e.preventDefault();realPassInput.value = "";showPassInput.value = "";});});});
+        "84017359": "https://gdit.com",
+        "2019485": "https://sygnia.co",
+        "4920185": "https://mandiant.com",
+        "8593021": "https://crowdstrike.com",
+        "3029481": "https://checkpoint.com",
+        "7105938": "https://cellointelligence.com",
+        "2957106": "https://adit.fr",
+        "7149352": "https://blackpeakgroup.com",
+        "49106275": "https://corporaterisk.com",
+        "83529146": "https://wallbrook.com",
+        "17640359": "https://raedas.com",
+        "5029184": "https://riskadvisory.com",
+        "6104928": "https://sloaneworldwide.com",
+        "8392015": "https://eurasiagroup.net",
+        "2940185": "https://jsheld.com",
+        "7104927": "https://ankura.com",
+        "3920194": "https://garda.com",
+        "8594021": "https://constellis.com",
+        "4029185": "https://cbrnteam.com",
+        "6930291": "https://flashpoint.io",
+        "7201948": "https://recordedfuture.com",
+        "8204915": "https://bellingcat.com",
+        "1029485": "https://intelligencefusion.co.uk",
+        "9302914": "https://intel471.com",
+        "5830291": "https://zerofox.com",
+        "40294812": "https://guidepostsolutions.com"
+    };
+
+    // Adăugare cifre la apăsare
+    numButtons.forEach(button => {
+        button.addEventListener("click", function() {
+            const digit = this.getAttribute("data-num");
+            realPassInput.value += digit;
+            showPassInput.value += "*";
+
+            const currentCode = realPassInput.value;
+
+            // Verificare potrivire pentru redirecționările externe
+            if (redirects[currentCode]) {
+                window.location.href = redirects[currentCode];
+                return;
+            }
+            
+            // AUTO-RESET: Golește ecranul la 9 caractere fără potrivire
+            if (currentCode.length >= 9) {
+                realPassInput.value = "";
+                showPassInput.value = "";
+            }
+        });
+    });
+
+    // Resetarea manuală la apăsarea pe "clear"
+    resetButtons.forEach(btn => {
+        btn.addEventListener("click", function(e) {
+            e.preventDefault();
+            realPassInput.value = "";
+            showPassInput.value = "";
+        });
+    });
+});
+</script>
+
+</body>
+</html>

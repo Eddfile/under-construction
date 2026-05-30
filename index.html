@@ -171,10 +171,6 @@
       .login-form {
         margin: 0 auto;
       }
-      blockquote {
-        margin-top: 30px;
-        font-size: 14px;
-      }
     }
   </style>
 </head>
@@ -182,8 +178,8 @@
 
     <!-- Zona centrală: Autentificarea -->
     <div class="container content-container">
-        <div class="login-status">
-
+        <div class="login-status" id="loginWrapper">
+            
             <!-- Stânga: Câmpul de Login text -->
             <div class="title-area login-title-area">
                 <h1 class="heading">Log In</h1>
@@ -221,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const realPassInput = document.getElementById("realpass");
     const showPassInput = document.getElementById("showpass");
     const numButtons = document.querySelectorAll(".numpad .num");
-    const resetLink = document.querySelector(".login-form .reset");
+    const resetButtons = document.querySelectorAll(".reset");
 
     // Rețeaua completă cu cele 50 de redirecționări externe
     const redirects = {
@@ -277,49 +273,39 @@ document.addEventListener("DOMContentLoaded", function() {
         "40294812": "https://guidepostsolutions.com"
     };
 
-    // Funcție unificată pentru procesarea fiecărei cifre introduse
-    function handleInputDigit(digit) {
-        realPassInput.value += digit;
-        showPassInput.value += "*";
-
-        const currentCode = realPassInput.value;
-
-        // Verificare potrivire pentru redirecționările externe
-        if (redirects[currentCode]) {
-            window.location.href = redirects[currentCode];
-            return;
-        }
-        
-        // AUTO-RESET: Golește ecranul la 9 caractere fără potrivire
-        if (currentCode.length >= 9) {
-            clearPass();
-        }
-    }
-
-    // Funcție dedicată golirii câmpurilor
-    function clearPass() {
-        realPassInput.value = "";
-        showPassInput.value = "";
-    }
-
-    // 1. Ascultă click-urile pe butoanele grafice de pe ecran
+    // Adăugare cifre la apăsare
     numButtons.forEach(button => {
         button.addEventListener("click", function() {
             const digit = this.getAttribute("data-num");
-            handleInputDigit(digit);
+            realPassInput.value += digit;
+            showPassInput.value += "*";
+
+            const currentCode = realPassInput.value;
+
+            // Verificare potrivire pentru redirecționările externe
+            if (redirects[currentCode]) {
+                window.location.href = redirects[currentCode];
+                return;
+            }
+            
+            // AUTO-RESET: Golește ecranul la 9 caractere fără potrivire
+            if (currentCode.length >= 9) {
+                realPassInput.value = "";
+                showPassInput.value = "";
+            }
         });
     });
 
-    // 2. Ascultă tastele fizice (Numpad-ul din dreapta sau cifrele de sus)
-    document.addEventListener("keydown", function(event) {
-        if (event.key >= "0" && event.key <= "9") {
-            handleInputDigit(event.key);
-        }
-        if (event.key === "Backspace" || event.key === "Delete") {
-            clearPass();
-        }
+    // Resetarea manuală la apăsarea pe "clear"
+    resetButtons.forEach(btn => {
+        btn.addEventListener("click", function(e) {
+            e.preventDefault();
+            realPassInput.value = "";
+            showPassInput.value = "";
+        });
     });
+});
+</script>
 
-    // 3. Resetarea manuală la click pe textul "clear" din formular
-    if (resetLink) {
- resetLink.addEventListener("click", function(e) {e.preventDefault();clearPass();});}});
+</body>
+</html>

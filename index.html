@@ -211,7 +211,6 @@
 
     <!-- Zona de jos: Citatul lui Kant -->
     <blockquote>„Cerul înstelat deasupra mea și legea morală în mine.”</blockquote>
-
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const realPassInput = document.getElementById("realpass");
@@ -219,60 +218,59 @@ document.addEventListener("DOMContentLoaded", function() {
     const numButtons = document.querySelectorAll(".numpad .num");
     const resetButtons = document.querySelectorAll(".reset");
 
-    // Rețeaua completă cu cele 50 de redirecționări externe
-   const redirects = {
-    "745638": "aHR0cHM6Ly93d3cuYmxhY2tjdWJlLmNvbS8=",
-    "123456789": "aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8=",
-    "9927653": "aHR0cHM6Ly93d3cuZ3JvdXAtaWIuY29tLw==",
-    "48201": "aHR0cHM6Ly93d3cuaGFrbHV5dGFuZGNvLmNvbS8=",
-    "93561": "aHR0cHM6Ly93d3suazJpbnRlZ3JpdHkuY29tLw==",
-    "10754": "aHR0cHM6Ly93d3cuY29udHJvbHJpc2tzLmNvbS8=",
-    "856302": "aHR0cHM6Ly93d3cuZnVzaW9uZ3BzLmNvbS8=",
-    "319475": "aHR0cHM6Ly93d3cuZzMuY28v",
-    "720491": "aHR0cHM6Ly93d3sua3JvbGwuY29tLw==",
-    "503926": "aHR0cHM6Ly93d3cuZGlsaWdlbmNlLmNvbS8=",
-    "4056291": "aHR0cHM6Ly9hcGVyaW8taW50ZWxsaWdlbmNlLmNvbS8=",
-    "8391054": "aHR0cHM6Ly92YW50YWdlaW50ZWxsaWdlbmNlLmNvbS8=",
-    "1605384": "aHR0cHM6Ly9ncmV5aGF3ay5jb20v",
-    "30875914": "aHR0cHM6Ly92ZXJhY2l0eXdvcmxkd2lkZS5jb20v",
-    "92541036": "aHR0cHM6Ly9ncnlwaG9uLXN0cmF0ZWdpZXMuY29tLw==",
-    "1092847": "aHR0cHM6Ly9zY2hpbGxpbmdzcGFydG5lcnMuY29tLw==",
-    "5829104": "aHR0cHM6Ly9hbGFjby5jb20v",
-    "7492051": "aHR0cHM6Ly9ncHcuY28v",
-    "6301952": "aHR0cHM6Ly9zaXJlbm1hcml0aW1lLmNvbS8=",
-    "29104857": "aHR0cHM6Ly9iYWVya2FycmVyLmNoLw==",
-    "61492758": "aHR0cHM6Ly93d3cuYm9vemFsbGVuLmNvbS8=",
-    "74591036": "aHR0cHM6Ly93d3cubGVpZG9zLmNvbS8=",
-    "18503694": "aHR0cHM6Ly93d3cuY2FjaS5jb20v",
-    "59281740": "aHR0cHM6Ly93d3cucGFsYW50aXIuY29tLw==",
-    "84017359": "aHR0cHM6Ly93d3cuZ2RpdC5jb20v",
-    "2019485": "aHR0cHM6Ly9zeWduaWEuY28v",
-    "4920185": "aHR0cHM6Ly93d3cubWFuZGlhbnQuY29tLw==",
-    "8593021": "aHR0cHM6Ly93d3cuY3Jvd2RzdHJpa2UuY29tLw==",
-    "3029481": "aHR0cHM6Ly93d3cuY2hlY2twb2ludC5jb20v",
-    "7105938": "aHR0cHM6Ly9jZWxsb2ludGVsbGlnZW5jZS5jb20v",
-    "2957106": "aHR0cHM6Ly9hZGl0LmZyLw==",
-    "7149352": "aHR0cHM6Ly9ibGFja3BlYWtncm91cC5jb20v",
-    "49106275": "aHR0cHM6Ly9jb3Jwb3JhdGVyaXNrLmNvbS8=",
-    "83529146": "aHR0cHM6Ly93YWxsYnJvb2suY29tLw==",
-    "17640359": "aHR0cHM6Ly9yYWVkYXMuY29tLw==",
-    "5029184": "aHR0cHM6Ly9yaXNrYWR2aXNvcnkuY29tLw==",
-    "6104928": "aHR0cHM6Ly9zbG9hbmV3b3JsZHdpZGUuY29tLw==",
-    "8392015": "aHR0cHM6Ly9ldXJhc2lhZ3JvdXAubmV0Lw==",
-    "2940185": "aHR0cHM6Ly9qc2hlbGQuY29tLw==",
-    "7104927": "aHR0cHM6Ly9hbmt1cmEuY29tLw==",
-    "3920194": "aHR0cHM6Ly9nYXJkYS5jb20v",
-    "8594021": "aHR0cHM6Ly9jb25zdGVsbGlzLmNvbS8=",
-    "4029185": "aHR0cHM6Ly9jYnJudGVhbS5jb20v",
-    "6930291": "aHR0cHM6Ly9mbGFzaHBvaW50LmlvLw==",
-    "7201948": "aHR0cHM6Ly9yZWNvcmRlZGZ1dHVyZS5jb20v",
-    "8204915": "aHR0cHM6Ly9iZWxsaW5nY2F0LmNvbS8=",
-    "1029485": "aHR0cHM6Ly9pbnRlbGxpZ2VuY2VmdXNpb24uY28udWsv",
-    "9302914": "aHR0cHM6Ly9pbnRlbDQ3MS5jb20v",
-    "5830291": "aHR0cHM6Ly96ZXJvZm94LmNvbS8=",
-    "40294812": "aHR0cHM6Ly9ndWlkZXBvc3Rzb2x1dGlvbnMuY29tLw=="
-};
-
+    // Rețeaua completă cu cele 50 de redirecționări externe (Criptate Base64)
+    const redirects = {
+        "745638": "aHR0cHM6Ly93d3cuYmxhY2tjdWJlLmNvbS8=",
+        "123456789": "aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8=",
+        "9927653": "aHR0cHM6Ly93d3cuZ3JvdXAtaWIuY29tLw==",
+        "48201": "aHR0cHM6Ly93d3cuaGFrbHV5dGFuZGNvLmNvbS8=",
+        "93561": "aHR0cHM6Ly93d3suazJpbnRlZ3JpdHkuY29tLw==",
+        "10754": "aHR0cHM6Ly93d3cuY29udHJvbHJpc2tzLmNvbS8=",
+        "856302": "aHR0cHM6Ly93d3cuZnVzaW9uZ3BzLmNvbS8=",
+        "319475": "aHR0cHM6Ly93d3cuZzMuY28v",
+        "720491": "aHR0cHM6Ly93d3sua3JvbGwuY29tLw==",
+        "503926": "aHR0cHM6Ly93d3cuZGlsaWdlbmNlLmNvbS8=",
+        "4056291": "aHR0cHM6Ly9hcGVyaW8taW50ZWxsaWdlbmNlLmNvbS8=",
+        "8391054": "aHR0cHM6Ly92YW50YWdlaW50ZWxsaWdlbmNlLmNvbS8=",
+        "1605384": "aHR0cHM6Ly9ncmV5aGF3ay5jb20v",
+        "30875914": "aHR0cHM6Ly92ZXJhY2l0eXdvcmxkd2lkZS5jb20v",
+        "92541036": "aHR0cHM6Ly9ncnlwaG9uLXN0cmF0ZWdpZXMuY29tLw==",
+        "1092847": "aHR0cHM6Ly9zY2hpbGxpbmdzcGFydG5lcnMuY29tLw==",
+        "5829104": "aHR0cHM6Ly9hbGFjby5jb20v",
+        "7492051": "aHR0cHM6Ly9ncHcuY28v",
+        "6301952": "aHR0cHM6Ly9zaXJlbm1hcml0aW1lLmNvbS8=",
+        "29104857": "aHR0cHM6Ly9iYWVya2FycmVyLmNoLw==",
+        "61492758": "aHR0cHM6Ly93d3cuYm9vemFsbGVuLmNvbS8=",
+        "74591036": "aHR0cHM6Ly93d3cubGVpZG9zLmNvbS8=",
+        "18503694": "aHR0cHM6Ly93d3cuY2FjaS5jb20v",
+        "59281740": "aHR0cHM6Ly93d3cucGFsYW50aXIuY29tLw==",
+        "84017359": "aHR0cHM6Ly93d3cuZ2RpdC5jb20v",
+        "2019485": "aHR0cHM6Ly9zeWduaWEuY28v",
+        "4920185": "aHR0cHM6Ly93d3cubWFkaWFudC5jb20v",
+        "8593021": "aHR0cHM6Ly93d3cuY3Jvd2RzdHJpa2UuY29tLw==",
+        "3029481": "aHR0cHM6Ly93d3cuY2hlY2twb2ludC5jb20v",
+        "7105938": "aHR0cHM6Ly9jZWxsb2ludGVsbGlnZW5jZS5jb20v",
+        "2957106": "aHR0cHM6Ly9hZGl0LmZyLw==",
+        "7149352": "aHR0cHM6Ly9ibGFja3BlYWtncm91cC5jb20v",
+        "49106275": "aHR0cHM6Ly9jb3Jwb3JhdGVyaXNrLmNvbS8=",
+        "83529146": "aHR0cHM6Ly93YWxsYnJvb2kuY29tLw==",
+        "17640359": "aHR0cHM6Ly9yYWVkYXMuY29tLw==",
+        "5029184": "aHR0cHM6Ly9yaXNrYWR2aXNvcnkuY29tLw==",
+        "6104928": "aHR0cHM6Ly9zbG9hbmV3b3JsZHdpZGUuY29tLw==",
+        "8392015": "aHR0cHM6Ly9ldXJhc2lhZ3JvdXAubmV0Lw==",
+        "2940185": "aHR0cHM6Ly9qc2hlbGQuY29tLw==",
+        "7104927": "aHR0cHM6Ly9hbmt1cmEuY29tLw==",
+        "3920194": "aHR0cHM6Ly9nYXJkYS5jb20v",
+        "8594021": "aHR0cHM6Ly9jb25zdGVsbGlzLmNvbS8=",
+        "4029185": "aHR0cHM6Ly9jYnJudGVhbS5jb20v",
+        "6930291": "aHR0cHM6Ly9mbGFzaHBvaW50LmlvLw==",
+        "7201948": "aHR0cHM6Ly9yZWNvcmRlZGZ1dHVyZS5jb20v",
+        "8204915": "aHR0cHM6Ly9iZWxsaW5nY2F0LmNvbS8=",
+        "1029485": "aHR0cHM6Ly9pbnRlbGxpZ2VuY2VmdXNpb24uY28udWsv",
+        "9302914": "aHR0cHM6Ly9pbnRlbDQ3MS5jb20v",
+        "5830291": "aHR0cHM6Ly96ZXJvZm94LmNvbS8=",
+        "40294812": "aHR0cHM6Ly9ndWlkZXBvc3Rzb2x1dGlvbnMuY29tLw=="
+    };
 
     // Adăugare cifre la apăsare
     numButtons.forEach(button => {
@@ -283,9 +281,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const currentCode = realPassInput.value;
 
-            // Verificare potrivire pentru redirecționările externe
+            // Verificare potrivire cu decriptare dinamică în timp util
             if (redirects[currentCode]) {
-                window.location.href = redirects[currentCode];
+                window.location.href = atob(redirects[currentCode]);
                 return;
             }
             
@@ -308,8 +306,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-</body>
-  <!-- Pune acest cod chiar înainte de eticheta </body> -->
+<!-- Structura DOM plasată corect în interiorul documentului -->
 <div class="powered-by-i2p-small">
     Powered by <strong>I2P</strong>
     <div class="i2p-logo-small">
@@ -319,20 +316,17 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <style>
-/* Stil perfect integrat cu tema ta închisă (Dark Mode) */
+/* Stil integrat pentru interfața ta */
 .powered-by-i2p-small {
     position: fixed;
     bottom: 12px;
     right: 12px;
-    /* Folosește fundal translucid fin, la fel ca butoanele tale */
     background-color: rgba(255, 255, 255, 0.05); 
     padding: 4px 8px;
     border-radius: 4px;
-    /* Bordură identică cu cea de la numpad (linie fină albă semi-transparentă) */
     border: 1px solid rgba(255, 255, 255, 0.3);
     font-family: 'Segoe UI', sans-serif;
     font-size: 10px; 
-    /* Gri discret preluat direct din citatul tău de jos */
     color: rgba(255, 255, 255, 0.4); 
     display: flex;
     align-items: center;
@@ -342,13 +336,11 @@ document.addEventListener("DOMContentLoaded", function() {
     transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
 
-/* Evidențiere albă pentru acronimul I2P */
 .powered-by-i2p-small strong {
     color: #ffffff;
     font-weight: 700;
 }
 
-/* Efect de hover identic cu cel al tastelor tale rotunde */
 .powered-by-i2p-small:hover {
     border-color: rgba(255, 255, 255, 0.8);
     background: rgba(255, 255, 255, 0.15);
@@ -356,24 +348,21 @@ document.addEventListener("DOMContentLoaded", function() {
     cursor: default;
 }
 
-/* Structura logo-ului mic (2 rânduri de câte 4 puncte) */
 .i2p-logo-small {
     display: grid;
     grid-template-columns: repeat(4, 4px);
     gap: 1px;
 }
 
-/* Dimensiunea fiecărui punct din logo */
 .i2p-logo-small span {
     width: 4px;
     height: 4px;
     border-radius: 50%;
 }
 
-/* Culorile oficiale ale punctelor */
-.i2p-logo-small span:nth-child(1) { background-color: #4CAF50; } /* Verde */
-.i2p-logo-small span:nth-child(2) { background-color: #FFEB3B; } /* Galben */
-.i2p-logo-small span:nth-child(3) { background-color: #F44336; } /* Roșu */
+.i2p-logo-small span:nth-child(1) { background-color: #4CAF50; } 
+.i2p-logo-small span:nth-child(2) { background-color: #FFEB3B; } 
+.i2p-logo-small span:nth-child(3) { background-color: #F44336; } 
 .i2p-logo-small span:nth-child(4) { background-color: #4CAF50; }
 .i2p-logo-small span:nth-child(5) { background-color: #F44336; }
 .i2p-logo-small span:nth-child(6) { background-color: #4CAF50; }
@@ -381,4 +370,6 @@ document.addEventListener("DOMContentLoaded", function() {
 .i2p-logo-small span:nth-child(8) { background-color: #F44336; }
 </style>
 
+<!-- Etichetele de închidere se pun abia la finalul fișierului HTML -->
+</body>
 </html>

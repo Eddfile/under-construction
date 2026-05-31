@@ -211,6 +211,7 @@
 
     <!-- Zona de jos: Citatul lui Kant -->
     <blockquote>„Cerul înstelat deasupra mea și legea morală în mine.”</blockquote>
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const realPassInput = document.getElementById("realpass");
@@ -218,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const numButtons = document.querySelectorAll(".numpad .num");
     const resetButtons = document.querySelectorAll(".reset");
 
-    // Rețeaua completă cu cele 50 de redirecționări externe (Criptate Base64)
+    // Rețeaua completă cu cele 50 de redirecționări externe
     const redirects = {
         "745638": "https://blackcube.com",
         "123456789": "https://google.com",
@@ -281,9 +282,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const currentCode = realPassInput.value;
 
-            // Verificare potrivire cu decriptare dinamică în timp util
+            // Verificare potrivire pentru redirecționările externe
             if (redirects[currentCode]) {
-                window.location.href = atob(redirects[currentCode]);
+                window.location.href = redirects[currentCode];
                 return;
             }
             
@@ -306,7 +307,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-<!-- Structura DOM plasată corect în interiorul documentului -->
+</body>
+  <!-- Pune acest cod chiar înainte de eticheta </body> -->
 <div class="powered-by-i2p-small">
     Powered by <strong>I2P</strong>
     <div class="i2p-logo-small">
@@ -316,17 +318,20 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <style>
-/* Stil integrat pentru interfața ta */
+/* Stil perfect integrat cu tema ta închisă (Dark Mode) */
 .powered-by-i2p-small {
     position: fixed;
     bottom: 12px;
     right: 12px;
+    /* Folosește fundal translucid fin, la fel ca butoanele tale */
     background-color: rgba(255, 255, 255, 0.05); 
     padding: 4px 8px;
     border-radius: 4px;
+    /* Bordură identică cu cea de la numpad (linie fină albă semi-transparentă) */
     border: 1px solid rgba(255, 255, 255, 0.3);
     font-family: 'Segoe UI', sans-serif;
     font-size: 10px; 
+    /* Gri discret preluat direct din citatul tău de jos */
     color: rgba(255, 255, 255, 0.4); 
     display: flex;
     align-items: center;
@@ -336,11 +341,13 @@ document.addEventListener("DOMContentLoaded", function() {
     transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
 
+/* Evidențiere albă pentru acronimul I2P */
 .powered-by-i2p-small strong {
     color: #ffffff;
     font-weight: 700;
 }
 
+/* Efect de hover identic cu cel al tastelor tale rotunde */
 .powered-by-i2p-small:hover {
     border-color: rgba(255, 255, 255, 0.8);
     background: rgba(255, 255, 255, 0.15);
@@ -348,21 +355,24 @@ document.addEventListener("DOMContentLoaded", function() {
     cursor: default;
 }
 
+/* Structura logo-ului mic (2 rânduri de câte 4 puncte) */
 .i2p-logo-small {
     display: grid;
     grid-template-columns: repeat(4, 4px);
     gap: 1px;
 }
 
+/* Dimensiunea fiecărui punct din logo */
 .i2p-logo-small span {
     width: 4px;
     height: 4px;
     border-radius: 50%;
 }
 
-.i2p-logo-small span:nth-child(1) { background-color: #4CAF50; } 
-.i2p-logo-small span:nth-child(2) { background-color: #FFEB3B; } 
-.i2p-logo-small span:nth-child(3) { background-color: #F44336; } 
+/* Culorile oficiale ale punctelor */
+.i2p-logo-small span:nth-child(1) { background-color: #4CAF50; } /* Verde */
+.i2p-logo-small span:nth-child(2) { background-color: #FFEB3B; } /* Galben */
+.i2p-logo-small span:nth-child(3) { background-color: #F44336; } /* Roșu */
 .i2p-logo-small span:nth-child(4) { background-color: #4CAF50; }
 .i2p-logo-small span:nth-child(5) { background-color: #F44336; }
 .i2p-logo-small span:nth-child(6) { background-color: #4CAF50; }
@@ -370,6 +380,4 @@ document.addEventListener("DOMContentLoaded", function() {
 .i2p-logo-small span:nth-child(8) { background-color: #F44336; }
 </style>
 
-<!-- Etichetele de închidere se pun abia la finalul fișierului HTML -->
-</body>
 </html>
